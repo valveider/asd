@@ -1,0 +1,12 @@
+class motd {
+	case $hostname {
+	/1$/ : { $equipo = '1'}
+	/2$/ : { $equipo = '2'}
+	}
+		file { 'motd':
+			path => '/etc/motd/',
+			ensure => file,
+			content => template("motd/motd.erb"),
+		}
+
+}

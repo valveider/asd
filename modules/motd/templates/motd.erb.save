@@ -1,0 +1,12 @@
+Equipo <%= fqdn %>.
+
+<% if uptime_hours > "2" %> Atencion, el equipo lleva encendido <%= uptime_hours %> horas, seria conveniente reiniciarlo 
+<% else %> Tiempo sin interrupciones: <%= uptime %>. <% end %>
+
+<% if @equipo == "1" %> Este es el primer equipo (supongo).
+<% elsif @equipo == "2" %> Este es el segundo equipo (tambien supongo).
+<% else %> Este no es ninguno de los dos equipos (ojala!). <% end %>
+
+Esta máquina utiliza <%= lsbdistdescription %>.
+
+Direccion de red: <%= ipaddress %>.
