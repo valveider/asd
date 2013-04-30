@@ -1,0 +1,4 @@
+sed '/<%= @cont %>/d' /etc/scripts/re.sh >> /etc/scripts/re.bak
+rm /etc/scripts/re.sh
+mv /etc/scripts/re.bak /etc/scripts/re.sh
+chmod 700 /etc/scripts/re.sh

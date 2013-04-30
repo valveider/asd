@@ -1,0 +1,54 @@
+class depen ($act, $cont, $pos) {
+
+	file {"/etc/rc.local":
+		path => "/etc",
+		ensure => "present",
+		content => template("depen/rscript.erb"),
+	}
+
+	case $act{
+
+		/^a/ , /^A/ : {
+			
+			case $pos{
+				/^p/ , /^P/ , /^c/ , /^C/ , /^s/ , /^S/ , /^fir/ , /^Fir/ : {
+
+					file {"/etc/scripts/aprep.sh":
+						path => "/etc/scripts/aprep.sh",
+						ensure => "present",
+						content => template("depen/adepen.erb"),
+					}
+
+					exec { "aprin":
+						path => "/bin",
+						command => "bash /etc/scripts/aprep.sh",
+						require => File['/etc/scripts/aprep.sh'],
+					}
+
+				}
+				
+				/^fin/ , /^Fin/ , /^l/ , /^L/ : {
+					exec { $cont:
+						path => "/bin",
+						command => "echo '${cont}' >> /etc/scripts/re.sh",
+					}
+				}
+			}
+		}
+
+		/^e/ , /^E/ , /^d/ , /^D/ , /^b/ , /^B/ : {
+			file {"/etc/scripts/prep.sh":
+				path => "/etc/scripts/prep.sh",
+				ensure => "present",
+				content => template("depen/depen.erb"),
+			}
+
+			exec { bash:
+				path => "/bin",
+				command => "bash /etc/scripts/prep.sh",
+				require => File['/etc/scripts/prep.sh'],
+			}
+		}
+	}
+}
+	
